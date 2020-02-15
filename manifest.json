@@ -1,0 +1,16 @@
+{
+    "name": "SmellsFishy",
+    "version": "1.0",
+    "description": "You smell fishy when you visit a fishy website.",
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "permissions": [
+          "tabs"
+    ],
+    "browser_action": {
+        "default_icon": "icon_24.png"
+    },
+    "manifest_version": 2
+}
