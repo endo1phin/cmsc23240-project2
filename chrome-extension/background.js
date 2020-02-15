@@ -1,7 +1,7 @@
 // sample maleware URL: https://www.wicar.org/test-malware.html
 
 // DELETE API KEY BEFORE COMMITTING TO GIT!!!
-const SAFE_BROWSE_API_KEY = 'AIzaSyBo-1hXhBEg7em9QNfW-TonmU1YvFML_9M';
+const SAFE_BROWSE_API_KEY = '';
 const SAFE_BROWSE_REQ_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=";
 
 
