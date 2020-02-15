@@ -1,7 +1,7 @@
 // sample maleware URL: https://www.wicar.org/test-malware.html
 
 
-const SAFE_BROWSE_API_KEY = 'AIzaSyA12IPHRlJdw2J8XAVGO-VQDFcE2GAbm-o';
+const SAFE_BROWSE_API_KEY = '';
 const SAFE_BROWSE_REQ_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=";
 
 
