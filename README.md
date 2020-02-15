@@ -3,9 +3,8 @@ Chrome extension that detects malicious website and triggers release of odor.
 
 ## Usage
 - Add api key to `background.js`
-- Open Chrome, go to `chrome://extensions/`
-- Enable developer mode
-- Load unpacked, select this folder
+- Load `chrome-extension` to Chrome
+- Run flask server
 - Try logging in malicious website
 
 ## Warning
