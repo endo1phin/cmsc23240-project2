@@ -73,8 +73,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
         // if chrome display warning, extension cannot read url
         if (newURL == '') {
-            alert("Threat detected!");
             sendSignal('high');
+            alert("Threat detected!");
             console.log('Chrome blocked url extraction');
         }
 
@@ -84,16 +84,15 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             console.log(displayedURL.slice(0,5));
             checkURL(displayedURL).then((threat) => {
                 if (Object.entries(threat).length != 0) {
-                    alert("Threat detected!");
                     sendSignal('high');
+                    alert("High level threat detected!\nDo not proceed on this website!");
                     console.log(threat);
-                    return;
+                }
+                else if (displayedURL.slice(0,5)!='https'){
+                    sendSignal('low');
+                    alert("Warning: http is not safe!\nUse websites with https protocol");
                 }
             });
-            if (displayedURL.slice(0,5)!='https' && Object.entries(threat).length==0){
-                alert("Warning: http is not safe!");
-                sendSignal('low');
-            }
         }
     }
 })
