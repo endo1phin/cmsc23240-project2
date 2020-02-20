@@ -6,7 +6,7 @@ Chrome extension that detects malicious website and triggers release of odor.
 - Load `chrome-extension` to [Chrome extension](https://developer.chrome.com/extensions/getstarted#manifest)
 - Run flask server:
 ```
-$ export FLASK_APP=hello.py
+$ export FLASK_APP=server.py
 $ flask run
 ```
 - Try going to a [malicious website](https://www.wicar.org/test-malware.html)
