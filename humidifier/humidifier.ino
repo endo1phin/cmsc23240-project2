@@ -72,7 +72,7 @@ void loop() {
     //high alert odor release
     receivedChar = 'a';
     shortPress();
-    delay(3000);
+    delay(5000);
     shortPress();
     delay(200);
     shortPress();
@@ -82,7 +82,7 @@ void loop() {
     //low alert odor release
     receivedChar = 'a';
     shortPress();
-    delay(1000);
+    delay(1500);
     shortPress();
     delay(200);
     shortPress();
