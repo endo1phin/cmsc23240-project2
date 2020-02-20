@@ -1,7 +1,7 @@
 // sample maleware URL: https://www.wicar.org/test-malware.html
 
 // DELETE API KEY BEFORE COMMITTING TO GIT!!!
-const SAFE_BROWSE_API_KEY = '';
+const SAFE_BROWSE_API_KEY = 'AIzaSyAGzzkQROCp8aW44pM423857kNMUmGJGJM';
 const SAFE_BROWSE_REQ_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=";
 
 
@@ -67,10 +67,8 @@ async function sendSignal(type) {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     // if api key is missing
     if (SAFE_BROWSE_API_KEY==''){
-        console.log('Missing API key');
-    }
-
-    else if (getProperty(tab, 'status', 'loading') == 'complete') {
+        alert('Missing API key');
+    } else if (getProperty(tab, 'status', 'loading') == 'complete') {
         let newURL = getProperty(tab, 'url', 'None');
 
         // if chrome display warning, extension cannot read url
@@ -84,19 +82,18 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         else if (displayedURL != newURL && newURL.slice(0, 6) != 'chrome') {
             displayedURL = newURL;
             console.log(displayedURL.slice(0,5));
+            checkURL(displayedURL).then((threat) => {
+                if (Object.entries(threat).length != 0) {
+                    alert("Threat detected!");
+                    sendSignal('high');
+                    console.log(threat);
+                    return;
+                }
+            });
             if (displayedURL.slice(0,5)!='https'){
                 alert("Warning: http is not safe!");
                 sendSignal('low');
-                console.log(threat)
-            } else {
-                checkURL(displayedURL).then((threat) => {
-                    if (Object.entries(threat).length != 0) {
-                        alert("Threat detected!");
-                        sendSignal('high');
-                        console.log(threat)
-                    }
-                })
-            }
+            } 
         }
     }
 })
