@@ -1,7 +1,7 @@
 // sample maleware URL: https://www.wicar.org/test-malware.html
 
 // DELETE API KEY BEFORE COMMITTING TO GIT!!!
-const SAFE_BROWSE_API_KEY = 'AIzaSyBo-1hXhBEg7em9QNfW-TonmU1YvFML_9M';
+const SAFE_BROWSE_API_KEY = '';
 const SAFE_BROWSE_REQ_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=";
 
 
@@ -57,11 +57,10 @@ async function checkURL(entry) {
 
 
 // send signal to local server to execute python script
-async function sendSignal() {
-    fetch('http://127.0.0.1:5000/release_odor',{mode: 'no-cors'})
-    .then((response)=>response.text())
-    .then((data)=> console.log(data))
+async function sendSignal(type) {
+    fetch(`http://127.0.0.1:5000/release_odor_${type}`,{mode: 'no-cors'});
 }
+
 
 
 // main function, executed when a tab is updated
@@ -76,21 +75,28 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
         // if chrome display warning, extension cannot read url
         if (newURL == '') {
-            alert("threat detected");
-            sendSignal();
+            alert("Threat detected!");
+            sendSignal('high');
             console.log('Chrome blocked url extraction');
         }
 
         // check if update is repetitive and if tab is not a webpage
         else if (displayedURL != newURL && newURL.slice(0, 6) != 'chrome') {
             displayedURL = newURL;
-            checkURL(displayedURL).then((threat) => {
-                if (Object.entries(threat).length != 0) {
-                    alert("threat detected");
-                    sendSignal();
-                    console.log(threat)
-                }
-            })
+            console.log(displayedURL.slice(0,5));
+            if (displayedURL.slice(0,5)!='https'){
+                alert("Warning: http is not safe!");
+                sendSignal('low');
+                console.log(threat)
+            } else {
+                checkURL(displayedURL).then((threat) => {
+                    if (Object.entries(threat).length != 0) {
+                        alert("Threat detected!");
+                        sendSignal('high');
+                        console.log(threat)
+                    }
+                })
+            }
         }
     }
 })
