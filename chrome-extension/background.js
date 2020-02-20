@@ -1,7 +1,7 @@
 // sample maleware URL: https://www.wicar.org/test-malware.html
 
 // DELETE API KEY BEFORE COMMITTING TO GIT!!!
-const SAFE_BROWSE_API_KEY = 'AIzaSyAGzzkQROCp8aW44pM423857kNMUmGJGJM';
+const SAFE_BROWSE_API_KEY = '';
 const SAFE_BROWSE_REQ_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find?key=";
 
 
@@ -90,10 +90,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                     return;
                 }
             });
-            if (displayedURL.slice(0,5)!='https'){
+            if (displayedURL.slice(0,5)!='https' && Object.entries(threat).length==0){
                 alert("Warning: http is not safe!");
                 sendSignal('low');
-            } 
+            }
         }
     }
 })
